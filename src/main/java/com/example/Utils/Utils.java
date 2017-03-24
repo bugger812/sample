@@ -1,11 +1,14 @@
 package com.example.Utils;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
 /**
  * Created by Sigal on 5/16/2016.
  */
+@Component
 public class Utils {
 
     public int getMonth(Date date) {
