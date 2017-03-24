@@ -1,0 +1,116 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+#* @vtlvariable name="dumps" type="java.util.ArrayList<java.lang.String>" *#
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success" id="runBackupJob" style="">$templateUtils.getTranslation("Run Backup Job")</button>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success" id="runNewRecordJob" style="">$templateUtils.getTranslation("Run New Record Job")</button>
+                </div>
+            </div>
+
+            <br/>
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success" id="runDeactivateRecordJob" style="">$templateUtils.getTranslation("Run Deactivate New Record Job")</button>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success" id="refreshMaps" style="">$templateUtils.getTranslation("Refresh Maps")</button>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">$templateUtils.getTranslation("Select a date to restore dump") <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="chooseClientDropDown">
+                            #foreach ($dumpDate in $dumps)
+                                <li>
+                                    <a class="dump-date-item">
+                                    $dumpDate
+                                    </a>
+                                </li>
+                            #end
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-lg-2">
+                    <input disabled class="form-control" class="input" id="selectedDumpDate" type="text" value="">
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <button disabled="true" type="button" class="btn btn-success" id="restoreDump" style="">$templateUtils.getTranslation("Restore Dump")</button>
+                </div>
+            </div>
+
+            <br/>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

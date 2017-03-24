@@ -1,0 +1,27 @@
+<div id="unsaved-changes-message" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">$templateUtils.getTranslation("Notice")</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="panel-body">
+                            $templateUtils.getTranslation("There are unsaved changes")
+                        </div>
+                        <button type='button' class='btn btn-success' id="saveTheChanges">$templateUtils.getTranslation("Save The Changes")</button>
+                        <button type='button' class='btn btn-info' data-dismiss="modal" id="stayToSave">$templateUtils.getTranslation("Stay To Save")</button>
+                        <button type='button' class='btn btn-danger' id="moveWithoutSaving">$templateUtils.getTranslation("Move Without Saving")</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">$templateUtils.getTranslation("Close")</button>
+            </div>
+        </div>
+    </div>
+</div>

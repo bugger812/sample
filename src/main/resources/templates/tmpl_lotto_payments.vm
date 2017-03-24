@@ -1,0 +1,141 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+#* @vtlvariable name="creditRefundObjectList" type="java.util.ArrayList<com.example.Objects.CreditRefundObject>" *#
+#* @vtlvariable name="creditObjectList" type="java.util.ArrayList<com.example.Objects.CreditObject>" *#
+#* @vtlvariable name="dailySalesObjectList" type="java.util.ArrayList<com.example.Objects.DailySalesObject>" *#
+#* @vtlvariable name="orderObjectList" type="java.util.ArrayList<com.example.Objects.OrderObject>" *#
+#* @vtlvariable name="lottoPaymentObject" type="com.example.Objects.LottoPaymentObject" *#
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Credit Refund")</label>
+                        #foreach($credit in $creditObjectList)
+                            <div>
+                                <input type="checkbox" #if($credit.lottoPaymentObject) checked #end class="credit-refund lotto-payments" checkbox-type="0"  oid="$credit.oid" sum="$credit.cuponsSum">  $templateUtils.formatDateExcludeTime($credit.date) ($templateUtils.round($credit.cuponsSum, 2))
+                            </div>
+                        #end
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Summary")</label>
+                        #foreach($dailySales in $dailySalesObjectList)
+                            <div>
+                                <input type="checkbox" #if($dailySales.lottoPaymentObject) checked #end class="daily-sales lotto-payments" checkbox-type="1"  oid="$dailySales.oid" sum="$dailySales.calculateSummary()">  $templateUtils.formatDateExcludeTime($dailySales.date) ($templateUtils.round($dailySales.calculateSummary(), 2))
+                            </div>
+                        #end
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Purchase Hishgad Packages")</label>
+                        #foreach($orderObject in $orderObjectList)
+                            <div>
+                                <input type="checkbox" #if($orderObject.lottoPaymentObject) checked #end class="orders lotto-payments" checkbox-type="2"  oid="$orderObject.oid" sum="$orderObject.price">  $templateUtils.formatDateExcludeTime($orderObject.purchaseDate) ($orderObject.price)
+                            </div>
+                        #end
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Other")</label>
+                        <input class="form-control orders" value="#if ($lottoPaymentObject.others) $lottoPaymentObject.others #else 0 #end" id="lotto-payments-other"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <label>$templateUtils.getTranslation("Sum Refunds")</label>
+                    <div id="sumCreditRefund">#if ($lottoPaymentObject.totalRefunds) $lottoPaymentObject.totalRefunds #else 0 #end</div>
+                </div>
+
+                <div class="col-lg-3">
+                    <label>$templateUtils.getTranslation("Sum Report")</label>
+                    <div id="sumSales">#if ($lottoPaymentObject.totalReports) $lottoPaymentObject.totalReports #else 0 #end</div>
+                </div>
+
+                <div class="col-lg-3">
+                    <label>$templateUtils.getTranslation("Sum Order")</label>
+                    <div id="sumOrders">#if ($lottoPaymentObject.totalOrders) $lottoPaymentObject.totalOrders #else 0 #end</div>
+                </div>
+
+                <div class="col-lg-3">
+                    <label>$templateUtils.getTranslation("Payment Summary")</label>
+                    <div id="totalPayment">#if ($lottoPaymentObject.total) $templateUtils.round($lottoPaymentObject.total, 2) #else 0 #end</div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success save-button" id="saveLottoPayments" style="">$templateUtils.getTranslation("Save")</button>
+                </div>
+            </div>
+
+
+
+            <div id="savedLottoPaymentSuccess" class="alert alert-info center-absolute center-screen"
+                 style="display: none;  width: 500px">
+                <strong>$templateUtils.getTranslation("Lotto Payment Saved Successfully")</strong>
+            </div>
+            <div id="savedLottoPaymentFailure" class="alert alert-danger center-absolute center-screen"
+                 style="display: none;  width: 200px">
+                <strong>$templateUtils.getTranslation("Failure Adding Lotto Payment")</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div style="display: none" id="changesSaved" saved="true"></div>
+    #parse("unsaved_changes_message.vm")
+
+
+</body>
+
+</html>

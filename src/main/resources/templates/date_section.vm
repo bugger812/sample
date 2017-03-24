@@ -1,0 +1,10 @@
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+<div class="row">
+    <div class="col-lg-2">
+        <input class="form-control" type="date" id="currentDate" value="$currentDate"/>
+    </div>
+    <div class="col-lg-2">
+        <button type="button" class="btn btn-info" id="changeDate" style="">$templateUtils.getTranslation("Change Date")</button>
+    </div>
+    <br/>
+</div>

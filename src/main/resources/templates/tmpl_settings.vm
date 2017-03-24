@@ -1,0 +1,48 @@
+#* @vtlvariable name="subjects" type="java.util.ArrayList<com.example.Objects.SubjectObject>" *#
+#* @vtlvariable name="user" type="com.example.Objects.UserObject" *#
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$siteName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+        <div class="form-style-5">
+            <form id="signupForm", action="/change_settings" method="post" onsubmit="return validateChangeSettingsForm($oldPassword)">
+                <fieldset>
+                    <legend>Change Info</legend>
+                    <input type="text" name="changeUserName" id="changeUserName" placeholder="New Username *"/>
+
+                    <input type="password" name="inputOldPassword" id="inputOldPassword" placeholder="Old Password *"/>
+                    <div  class="alert alert-danger" id="oldPasswordAlert" style="padding: 0px!important; display: none;"> You must enter your old password </div>
+
+                    <input type="password" name="changePassword" id="changePassword" placeholder="New Password *"/>
+                    <div  class="alert alert-danger" id="changePasswordAlert" style="padding: 0px!important; display: none;"> You must enter your new password </div>
+
+                    <input type="password" name="repeatChangePassword" id="repeatChangePassword" placeholder="New Password Again*"/>
+                    <div  class="alert alert-danger" id="repeatChangePasswordAlert" style="padding: 0px!important; display: none;"> You must enter your password again </div>
+                    <div  class="alert alert-danger" id="confirmCchangePasswordAlert" style="padding: 0px!important; display: none;"> Password confirmation failed </div>
+
+##                    <input type="text" name="changeEmail" id="changeEmail" placeholder="New Email *"/>
+
+                </fieldset>
+                <input type="submit" id="changeSettingsButton" value="Change Settings"/>
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
+<!-- /#wrapper -->
+</body>
+</html>

@@ -1,0 +1,50 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div style="display: none" id="changesSaved" saved="true"></div>
+    #parse("unsaved_changes_message.vm")
+
+
+</body>
+
+</html>

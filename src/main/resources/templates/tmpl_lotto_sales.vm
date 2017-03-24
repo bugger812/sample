@@ -1,0 +1,260 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="historyOrders" type="java.util.ArrayList<com.example.Objects.OrderObject>" *#
+#* @vtlvariable name="dailySalesObject" type="com.example.Objects.DailySalesObject" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+#* @vtlvariable name="dailySalesObjectList" type="java.util.ArrayList<com.example.Objects.DailySalesObject>" *#
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                        <a href="/analysis-sales.html">
+                            <button type="button" class="btn btn-warning" style="float: left">$templateUtils.getTranslation("Sales Analysis")</button>
+                        </a>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>$templateUtils.getTranslation("Sales")</th>
+                                <th>$templateUtils.getTranslation("Wins")</th>
+                                <th>$templateUtils.getTranslation("Commission")</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr id="lottoSection">
+                                <td>$templateUtils.getTranslation("Lotto")</td>
+                                <td><input id="lottoSales" class="form-control lotto-sales" type="number" value="$dailySalesObject.lottoSales" /></td>
+                                <td><input id="lottoWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.lottoWins" /></td>
+                                <td id="lottoCommission" class="lotto-commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.getLottoCommission(), 3) #else 0 #end</td>
+                            </tr>
+                            <tr id="extraSection">
+                                <td>$templateUtils.getTranslation("Extra")</td>
+                                <td><input id="extraSales" class="form-control lotto-sales" type="number" value="$dailySalesObject.extraSales" /></td>
+                                <td><input id="extraWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.extraWins" /></td>
+                                <td id="extraCommission" class="lotto-commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.getExtraCommission(), 3) #else 0 #end</td>
+                            </tr>
+                            <tr id="specialSection">
+                                <td>$templateUtils.getTranslation("Special Lottery")</td>
+                                <td><input id="specialSales" class="form-control lotto-sales" type="number" value="$dailySalesObject.specialSales" /></td>
+                                <td><input id="specialWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.specialWins" /></td>
+                                <td id="specialCommission" class="lotto-commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.getSpecialCommission(), 3) #else 0 #end</td>
+                            </tr>
+                            <tr id="chanceSection">
+                                <td>$templateUtils.getTranslation("Chance")</td>
+                                <td><input id="chanceSales" class="form-control lotto-sales" type="number" value="$dailySalesObject.chanceSales" /></td>
+                                <td><input id="chanceWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.chanceWins" /></td>
+                                <td id="chanceCommission" class="lotto-commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.getChanceCommission(), 3) #else 0 #end</td>
+                            </tr>
+                            <tr id="oneTwoThreeSection">
+                                <td>123</td>
+                                <td><input id="oneTwoThreeSales" class="form-control lotto-sales" type="number" value="$dailySalesObject.oneTwoThreeSales" /></td>
+                                <td><input id="oneTwoThreeWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.oneTwoThreeWins" /></td>
+                                <td id="oneTwoThreeCommission" class="lotto-commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.getOneTwoThreeCommission(), 3) #else 0 #end</td>
+                            </tr>
+                            <tr id="sevenSection">
+                                <td>777</td>
+                                <td><input id="sevenSales" class="form-control lotto-sales" type="number" value="$dailySalesObject.sevenSales" /></td>
+                                <td><input id="sevenWins" class="form-control lotto-sales " type="number" value="$dailySalesObject.sevenWins" /></td>
+                                <td id="sevenCommission" class="lotto-commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.getSevenCommission(), 3) #else 0 #end </td>
+                            </tr>
+                            <tr id="hishgadSection">
+                                <td>$templateUtils.getTranslation("Hishgad")</td>
+                                <td><input disabled id="hishgadSales" class="form-control" type="number" /></td>
+                                <td><input id="hishgadWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.hishgadWins" /></td>
+                                <td id="hishgadCommission">-</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            </br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tbody>
+                            <tr>
+                                <td>$templateUtils.getTranslation("Remaining")</td>
+                                <td id="remaining">#if($dailySalesObject) $templateUtils.round($dailySalesObject.calculateRemaining(),3) #else 0 #end</td>
+                            </tr>
+                            <tr>
+                                <td>$templateUtils.getTranslation("Commissions")</td>
+                                <td id="commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.calcualteCommissions(), 3) #else 0 #end</td>
+                            </tr>
+                            <tr>
+                                <td>$templateUtils.getTranslation("Summary")</td>
+                                <td id="summary">#if($dailySalesObject) $templateUtils.round($dailySalesObject.calculateSummary(), 3) #else 0 #end</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <button type="button" class="btn btn-success save-button" id="saveLottoForm" style="">$templateUtils.getTranslation("Save")</button>
+            <button type="button" class="btn btn-danger" id="resetLottoForm">$templateUtils.getTranslation("Reset")</button>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="alert alert-danger" id="missingDetails" style="display: none;" >
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>$templateUtils.getTranslation("Notice:") </strong> $templateUtils.getTranslation("You must fill in the dates before continuing!")
+                </div>
+
+                <div id="saveDailySalesSuccess" class="alert alert-info center-absolute center-screen"
+                     style="display: none;  width: 500px">
+                    <strong>$templateUtils.getTranslation("Daily Sales Saved Successfuly")</strong>
+                </div>
+                <div id="saveDailySalesFailure" class="alert alert-danger center-absolute center-screen"
+                     style="display: none;  width: 200px">
+                    <strong>$templateUtils.getTranslation("Error Saving Daily Sales")</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <button style="margin: 28px" type="button" class="btn btn-info" id="showDailySalesHistory" >$templateUtils.getTranslation("Show History")</button>
+        </div>
+        <div id="lottoSalesHistory" style="display: none">
+        #foreach($dailySalesObject in $dailySalesObjectList)
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>$templateUtils.formatDateExcludeTime($dailySalesObject.date)</h1>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>$templateUtils.getTranslation("Sales")</th>
+                                <th>$templateUtils.getTranslation("Wins")</th>
+                                <th>$templateUtils.getTranslation("Commission")</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr id="lottoSection">
+                                <td>$templateUtils.getTranslation("Lotto")</td>
+                                <td><input id="lottoSales" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.lottoSales" /></td>
+                                <td><input id="lottoWins" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.lottoWins" /></td>
+                                <td id="lottoCommission">#if($dailySalesObject) $dailySalesObject.getLottoCommission() #else 0 #end</td>
+                            </tr>
+                            <tr id="extraSection">
+                                <td>$templateUtils.getTranslation("Extra")</td>
+                                <td><input id="extraSales" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.extraSales" /></td>
+                                <td><input id="extraWins" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.extraWins" /></td>
+                                <td id="extraCommission">#if($dailySalesObject) $dailySalesObject.getExtraCommission() #else 0 #end</td>
+                            </tr>
+                            <tr id="specialSection">
+                                <td>$templateUtils.getTranslation("Special Lottery")</td>
+                                <td><input id="specialSales" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.specialSales" /></td>
+                                <td><input id="specialWins" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.specialWins" /></td>
+                                <td id="specialCommission">#if($dailySalesObject) $dailySalesObject.getSpecialCommission() #else 0 #end</td>
+                            </tr>
+                            <tr id="chanceSection">
+                                <td>$templateUtils.getTranslation("Chance")</td>
+                                <td><input id="chanceSales" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.chanceSales" /></td>
+                                <td><input id="chanceWins" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.chanceWins" /></td>
+                                <td id="chanceCommission">#if($dailySalesObject) $dailySalesObject.getChanceCommission() #else 0 #end</td>
+                            </tr>
+                            <tr id="oneTwoThreeSection">
+                                <td>123</td>
+                                <td><input id="oneTwoThreeSales" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.oneTwoThreeSales" /></td>
+                                <td><input id="oneTwoThreeWins" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.oneTwoThreeWins" /></td>
+                                <td id="oneTwoThreeCommission">#if($dailySalesObject) $dailySalesObject.getOneTwoThreeCommission() #else 0 #end</td>
+                            </tr>
+                            <tr id="sevenSection">
+                                <td>777</td>
+                                <td><input id="sevenSales" disabled class="form-control lotto-sales" type="number" value="$dailySalesObject.sevenSales" /></td>
+                                <td><input id="sevenWins" disabled class="form-control lotto-sales " type="number" value="$dailySalesObject.sevenWins" /></td>
+                                <td id="sevenCommission">#if($dailySalesObject) $dailySalesObject.getSevenCommission() #else 0 #end </td>
+                            </tr>
+                            <tr id="hishgadSection">
+                                <td>$templateUtils.getTranslation("Hishgad")</td>
+                                <td><input disabled id="hishgadSales" class="form-control" type="number" /></td>
+                                <td><input disabled id="hishgadWins" class="form-control lotto-sales" type="number" value="$dailySalesObject.hishgadWins" /></td>
+                                <td id="hishgadCommission">-</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tbody>
+                            <tr>
+                                <td>$templateUtils.getTranslation("Remaining")</td>
+                                <td class="remaining">#if($dailySalesObject) $templateUtils.round($dailySalesObject.calculateRemaining(), 2) #else 0 #end</td>
+                            </tr>
+                            <tr>
+                                <td>$templateUtils.getTranslation("Commissions")</td>
+                                <td class="commissions">#if($dailySalesObject) $templateUtils.round($dailySalesObject.calcualteCommissions(), 2) #else 0 #end</td>
+                            </tr>
+                            <tr>
+                                <td>$templateUtils.getTranslation("Summary")</td>
+                                <td class="summary">#if($dailySalesObject) $templateUtils.round($dailySalesObject.calculateSummary(), 2) #else 0 #end</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        #end
+        </div>
+
+
+
+    </div>
+
+</div>
+<div style="display: none" id="changesSaved" saved="true"></div>
+    #parse("unsaved_changes_message.vm")
+
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+.center-screen {
+    position: fixed;
+    top: 50%;
+    left: 30%;
+}
+
+table.floatThead-table {
+    background-color: #eee;
+}
+
+.red-text-color {
+    color: red;
+}
+
+.green-text-color {
+    color: green;
+}

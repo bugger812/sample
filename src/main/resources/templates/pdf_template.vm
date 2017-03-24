@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>home</title>
+    <style>
+        h2 {color:darkblue;}
+        body {font-family: "Times New Roman", Times, serif;}
+    </style>
+</head>
+<body>
+<h2>Hello $name</h2>
+<div>של החברה למתנס"ים ותומכת באתר </div>
+</body>
+</html>

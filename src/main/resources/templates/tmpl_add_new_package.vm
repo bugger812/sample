@@ -1,0 +1,103 @@
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Package Name")</label>
+                        <input class="form-control" id="packageName">
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Ticket Price")</label>
+                        <input class="form-control" type="number" id="packagePrice">
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Ticket In Package")</label>
+                        <input class="form-control"  type="number" id="ticketsInPackage">
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>$templateUtils.getTranslation("Commission")</label>
+                        <input class="form-control" max="0.07" min="0" value="0.07" type="number" id="commission">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.row -->
+            <div class="row">
+                <p style="padding-right: 20px">
+                    <button type="button" class="btn btn-success save-button" id="addNewPackageButton">$templateUtils.getTranslation("Add")</button>
+                </p>
+            </div>
+
+            <div id="addedPackageSuccess" class="alert alert-info center-absolute center-screen"
+                 style="display: none;  width: 500px">
+                <strong>$templateUtils.getTranslation("Package Added Successfuly, You May Add Another One")</strong>
+            </div>
+            <div id="addedPackageFailure" class="alert alert-danger center-absolute center-screen"
+                 style="display: none;  width: 200px">
+                <strong>$templateUtils.getTranslation("Error Adding Package")</strong>
+            </div>
+
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<div style="display: none" id="changesSaved" saved="true"></div>
+    #parse("unsaved_changes_message.vm")
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+
+
+
+
+
+</body>
+
+</html>

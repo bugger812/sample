@@ -1,0 +1,168 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="historyOrders" type="java.util.ArrayList<com.example.Objects.OrderObject>" *#
+#* @vtlvariable name="dailyDebts" type="java.util.ArrayList<com.example.Objects.DailyDebtObject>" *#
+#* @vtlvariable name="clients" type="java.util.ArrayList<com.example.Objects.ClientObject>" *#
+#* @vtlvariable name="clientDailyDebtObjects" type="java.util.ArrayList<com.example.Objects.ClientDailyDebtObject>" *#
+#* @vtlvariable name="dailyDebtsMap" type="java.util.HashMap<java.lang.String,java.util.ArrayList<com.example.Objects.DailyDebtObject>>" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">$templateUtils.getTranslation("Click To Choose A Client") <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="chooseClientDropDown">
+                            #foreach ($clientDailyDebt in $clientDailyDebtObjects)
+                                <li class="client-daily-debt">
+                                    <a class="client-daily-debt-details" client-oid="$clientDailyDebt.clientOid" name="$clientDailyDebt.name"">
+                                    $clientDailyDebt.name
+                                    </a>
+                                </li>
+                            #end
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                ##                <h2>Daily Debts</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped" id="dailyDebts" #if ($dailyDebts.size() > 0) #else style="display: none" #end>
+                            <thead>
+                            <tr>
+                                <th>$templateUtils.getTranslation("Name") </th>
+                                <th>$templateUtils.getTranslation("Before")</th>
+                                <th>$templateUtils.getTranslation("Change")</th>
+                                <th>$templateUtils.getTranslation("After")</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                #foreach($clientDailyDebt in $clientDailyDebtObjects)
+                                <tr #if(!$clientDailyDebt.show) style="display: none" #end client-oid="$clientDailyDebt.clientOid" id="debt-row-$clientDailyDebt.clientOid">
+                                    <td class="client-name"><a href="/client-debts.html?clientOid=$clientDailyDebt.clientOid">$clientDailyDebt.name</a></td>
+                                    <td id="before-debt-$clientDailyDebt.clientOid">$clientDailyDebt.before</td>
+                                    <td>
+                                        <input #if($clientDailyDebt.show) show="true"  #end  type="number" before="$clientDailyDebt.before" client-oid="$clientDailyDebt.clientOid" debt-oid="$clientDailyDebt.clientOid" value="$clientDailyDebt.change" id="change-debt-$clientDailyDebt.clientOid" class="form-control daily-debt"/>
+                                    </td>
+                                    <td id="after-debt-$clientDailyDebt.clientOid">$clientDailyDebt.after</td>
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success save-button" id="saveDailyDebts" style="display: none">$templateUtils.getTranslation("Save")</button>
+                </div>
+            </div>
+            <br/>
+            <br/>
+
+            <button type="button" class="btn btn-info" id="showDebtsHistory" >$templateUtils.getTranslation("Show History")</button>
+            <div id="debtsHistory" style="display: none">
+                #foreach ($date in $dailyDebtsMap.keySet())
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h2>$date</h2>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped" class="dailyDebtsHistory">
+                                    <thead>
+                                    <tr>
+                                        <th>$templateUtils.getTranslation("Name") </th>
+                                        <th>$templateUtils.getTranslation("Before")</th>
+                                        <th>$templateUtils.getTranslation("Change")</th>
+                                        <th>$templateUtils.getTranslation("After")</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        #set($list = $dailyDebtsMap.get($date))
+                                        #foreach($item in $list)
+                                        <tr>
+                                            <td><a href="/client-debts.html?clientOid=$item.clientObject.oid"> $item.clientObject.name </a></td>
+                                            <td> $item.beforeSum </td>
+                                            <td> $item.getChangeSum() </td>
+                                            <td> $item.afterSum </td>
+                                        </tr>
+                                        #end
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                #end
+            </div>
+
+
+            <div id="AddedDailyDebtsSuccess" class="alert alert-info center-absolute center-screen"
+                 style="display: none;  width: 500px">
+                <strong>$templateUtils.getTranslation("Daily Debts Added Successfully")</strong>
+            </div>
+            <div id="AddedDailyDebtsFailure" class="alert alert-danger center-absolute center-screen"
+                 style="display: none;  width: 200px">
+                <strong>$templateUtils.getTranslation("Failure Adding Daily Debts")</strong>
+            </div>
+            <div id="AddedDailyDebtsFailureIllegal" class="alert alert-danger center-absolute center-screen"
+                 style="display: none;  width: 200px">
+                <strong>$templateUtils.getTranslation("Illegal Change")</strong>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+#parse("unsaved_changes_message.vm")
+<div style="display: none" id="changesSaved" saved="true"></div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="historyOrders" type="java.util.ArrayList<com.example.Objects.OrderObject>" *#
+#* @vtlvariable name="clients" type="java.util.ArrayList<com.example.Objects.ClientObject>" *#
+#* @vtlvariable name="incomeOutcome" type="com.example.Objects.BankIncomeOutcomeObject" *#
+#* @vtlvariable name="incomeOutcomeHistory" type="java.util.ArrayList<com.example.Objects.BankIncomeOutcomeObject>" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>$templateUtils.getTranslation("Today's Income/Outcome Bank")</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>$templateUtils.getTranslation("Income") </th>
+                                <th>$templateUtils.getTranslation("Outcome") </th>
+                                <th>$templateUtils.getTranslation("Details")</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td >
+                                    <input id="incomeAmount" type="number" #if($incomeOutcome) value="$incomeOutcome.income" #else value="0" #end class="form-control"/>
+                                </td>
+                                <td >
+                                    <input id="outcomeAmount" type="number" #if($incomeOutcome) value="$incomeOutcome.outcome" #else value="0" #end class="form-control"/>
+                                </td>
+                                <td >
+                                    <input id="incomeOutcomeDetails" #if($incomeOutcome) value="$incomeOutcome.details" #end class="form-control"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-success save-button" id="saveBankIncomeOutcome">$templateUtils.getTranslation("Save")</button>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2>$templateUtils.getTranslation("Previous Outcomes Bank")</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>$templateUtils.getTranslation("Date") </th>
+                                <th>$templateUtils.getTranslation("Income") </th>
+                                <th>$templateUtils.getTranslation("Outcome")</th>
+                                <th>$templateUtils.getTranslation("Details") </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                #foreach($incomeOutcome in $incomeOutcomeHistory)
+                                <tr>
+                                    <td>$templateUtils.formatDateExcludeTime($incomeOutcome.date)
+                                    </td>
+                                    <td>#if($incomeOutcome.income) $incomeOutcome.income #else - #end
+                                    </td>
+                                    <td>#if($incomeOutcome.outcome) $incomeOutcome.outcome #else - #end
+                                    </td>
+                                    <td>$incomeOutcome.details
+                                    </td>
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="AddedIncomeOutcomeSuccess" class="alert alert-info center-absolute center-screen"
+                 style="display: none;  width: 500px">
+                <strong>$templateUtils.getTranslation("Success Adding Income Outcome")</strong>
+            </div>
+            <div id="AddedIncomeOutcomeFailure" class="alert alert-danger center-absolute center-screen"
+                 style="display: none;  width: 200px">
+                <strong>$templateUtils.getTranslation("Failure Adding Income Outcome")</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div style="display: none" id="changesSaved" saved="true"></div>
+    #parse("unsaved_changes_message.vm")
+
+
+</body>
+
+</html>

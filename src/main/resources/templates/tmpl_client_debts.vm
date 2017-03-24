@@ -1,0 +1,163 @@
+#* @vtlvariable name="hishgadPackages" type="java.util.ArrayList<com.example.Objects.HishgadPackageObject>" *#
+#* @vtlvariable name="historyOrders" type="java.util.ArrayList<com.example.Objects.OrderObject>" *#
+#* @vtlvariable name="clients" type="java.util.ArrayList<com.example.Objects.ClientObject>" *#
+#* @vtlvariable name="templateUtils" type="com.example.Utils.TemplateUtils" *#
+#* @vtlvariable name="dailyDebtObjectList" type="java.util.ArrayList<com.example.Objects.DailyDebtObject>" *#
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>$pageName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+
+<body>
+
+<div id="wrapper" style="padding-right: 135px">
+
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+
+        #parse("date_section.vm")
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>$pageName</small>
+                    </h1>
+                </div>
+            </div>
+
+            #if($dailyDebtObjectList.size() > 0)
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h2>$dailyDebtObjectList.get(0).clientObject.name</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th>$templateUtils.getTranslation("Date") </th>
+                                    <th>$templateUtils.getTranslation("Before") </th>
+                                    <th>$templateUtils.getTranslation("Change") </th>
+                                    <th>$templateUtils.getTranslation("After") </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    #foreach($clientDebt in $dailyDebtObjectList)
+                                    <tr>
+                                        <td>$templateUtils.formatDateExcludeTime($clientDebt.date)
+                                        </td>
+                                        <td>$clientDebt.beforeSum
+                                        </td>
+                                        <td>$clientDebt.getChangeSum()
+                                        </td>
+                                        <td>$clientDebt.afterSum
+                                        </td>
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9" style="direction: ltr !important;">
+                        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    </div>
+                </div>
+            #end
+
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<div style="display: none" id="changesSaved" saved="true"></div>
+    #set($i = 0)
+    #foreach($debt in $dailyDebtObjectList)
+        #set($i = $i + 1)
+    ' $templateUtils.formatDateExcludeTime($debt.date) '
+        #if($i != $dailyDebtObjectList.size())
+        ,
+        #end
+    #end
+
+    #parse("unsaved_changes_message.vm")
+
+</body>
+
+#if($dailyDebtObjectList.size() > 0)
+
+<script type="text/javascript">
+    $(function () {
+        $('#container').attr("dir","ltr");
+        $('#container').highcharts({
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '$templateUtils.getTranslation("Client Debts History")'
+            },
+            xAxis: {
+                categories: [
+                    #set($i = 0)
+                    #foreach($debt in $dailyDebtObjectList)
+                        #set($i = $i + 1)
+                        ' $templateUtils.formatDateExcludeTime($debt.date) '
+                        #if($i != $dailyDebtObjectList.size())
+                            ,
+                        #end
+                    #end
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: '$templateUtils.getTranslation("Debt")'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: '$dailyDebtObjectList.get(0).clientObject.name',
+                data: [
+                    #set($i = 0)
+                    #foreach($debt in $dailyDebtObjectList)
+                        #set($i = $i + 1)
+                        $debt.afterSum
+                        #if($i != $dailyDebtObjectList.size())
+                            ,
+                        #end
+                    #end
+                ]
+            }]
+        });
+    });
+</script>
+
+#end
+
+
+
+</html>
