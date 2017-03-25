@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
 @Profile("production")
 @Configuration
 public class DataBaseConfiguration {
