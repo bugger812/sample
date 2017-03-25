@@ -14,6 +14,7 @@ import java.util.Properties;
 @Configuration
 public class InMemoryConfiguration {
 
+
     @Bean
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
