@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ExampleController {
 
     @RequestMapping("/about")
-    public String about(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String about() {
          return "tmpl_about";
     }
 
