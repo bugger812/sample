@@ -16,4 +16,10 @@ public class ExampleController {
          return "tmpl_about";
     }
 
+
+    @RequestMapping("/shai")
+    public String shai() {
+        return "tmpl_shai";
+    }
+
 }
