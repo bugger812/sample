@@ -1,0 +1,27 @@
+<html>
+
+<head>
+
+<title> Select Provider </title>
+
+</head>
+
+<body>
+
+Name: $provider.name
+</br>
+Type: $provider.profession
+</br>
+Phone: $provider.phoneNumber
+</br>
+Price: $provider.price
+</br>
+rank: $provider.rank
+
+
+
+
+</body>
+
+
+</html>
