@@ -1,0 +1,11 @@
+#foreach($p in $allProviders)
+<h2>$p.id </h2>
+<h2>$p.name </h2>
+<h2>$p.profession </h2>
+<h2>$p.phoneNumber </h2>
+<h2>$p.price </h2>
+<h2>$p.rank </h2>
+
+
+
+#end
