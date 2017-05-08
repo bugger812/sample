@@ -17,8 +17,8 @@ public class Repository {
 
     private Repository() {
         providerObjectList = new ArrayList<>();
-        ProviderObject p1 = new ProviderObject(1, "Moshe", "Doctor", 123);
-        ProviderObject p2 = new ProviderObject(2, "Shai", "Programmer", 456);
+        ProviderObject p1 = new ProviderObject(1, "Moshe", "Doctor", 123, 100, 56);
+        ProviderObject p2 = new ProviderObject(2, "Shai", "Programmer", 456, 150, 12);
         providerObjectList.add(p1);
         providerObjectList.add(p2);
     }
