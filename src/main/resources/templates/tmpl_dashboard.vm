@@ -1,0 +1,12 @@
+<html>
+    <body>
+
+        <a href="/provider">Go to provider </a>
+        <br/>
+        <a href="/best-providers">Go to best providers </a>
+        <br/>
+        <a href="/sason">Go to sason's page </a>
+
+    </body>
+
+</html>
