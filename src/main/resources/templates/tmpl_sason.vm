@@ -1,25 +1,39 @@
-<html>
-    <body>
+ <html>
 
-    <h1>
-       Hello
-    </h1>
+ <head>
 
-    <div>
-    Name:
+ <style>
+ table, th, td {
+     border: 8px solid black;
+     border-collapse: collapse;
+ }
+ th, td {
+     padding: 25px;
+     text-align: left;
+ }
+ </style>
 
-    </br>
+ </head>
 
-    Address:
+ <body>
 
-    </br>
+ <h2>List of users:</h2>
+ <table style="width:80%">
+   <tr>
+     <th>Name:</th>
+     <th>Address:</th>
+     <th colspan="2">Number phone:</th>
 
-    Number phone:
+   </tr>
+   <tr>
+     <td>$userObject.username</td>
+     <td>$userObject.address </td>
+     <td>$userObject.phone</td>
+   </tr>
 
-    </br>
 
-    </div>
+ </table>
 
-    </body>
-
+ </body>
  </html>
+
