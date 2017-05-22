@@ -18,8 +18,7 @@ Price: $provider.price
 </br>
 rank: $provider.rank
 
-
-
+#parse("tmpl_backbtn.vm")
 
 </body>
 

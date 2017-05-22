@@ -6,6 +6,6 @@
 <h2>$p.price </h2>
 <h2>$p.rank </h2>
 
-
+#parse("tmpl_backbtn.vm")
 
 #end
