@@ -13,6 +13,7 @@ public class DashboardController {
 
     @RequestMapping("/")
     public String dashboard() {
+        int i = 0;
         return "tmpl_dashboard";
     }
 
