@@ -23,7 +23,7 @@ public class ExampleController {
     @PostConstruct
     public void printInfo() {
         System.out.println("The object has constructed and this is post construct");
-
+        System.out.println("This is example");
     }
 
     @RequestMapping("/about")
