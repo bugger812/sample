@@ -9,4 +9,12 @@ public class UserObject {
     private String phone;
 
 
+    public void setAddress(String ashkelon) {
+    }
+
+    public void setPhone(String s) {
+    }
+
+    public void setUsername(String sason) {
+    }
 }
